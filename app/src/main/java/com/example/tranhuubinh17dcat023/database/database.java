@@ -210,4 +210,25 @@ public class database extends SQLiteOpenHelper {
         db.close();
         return giangVien;
     }
+
+    // Tìm kiếm giảng viên theo tên
+    public ArrayList<B17DCAT023_GiangVien> getGiangVienByName(String name) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<B17DCAT023_GiangVien> giangVienArrayList = new ArrayList<>();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_GIANGVIEN + " WHERE " + GIANGVIEN_NAME + " LIKE '%" + name + "%'", null);
+        if (cursor.moveToFirst()) {
+            do {
+                B17DCAT023_GiangVien giangVien = new B17DCAT023_GiangVien(
+                        cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3));
+                giangVienArrayList.add(giangVien);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return giangVienArrayList;
+    }
 }
