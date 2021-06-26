@@ -231,4 +231,12 @@ public class database extends SQLiteOpenHelper {
         db.close();
         return giangVienArrayList;
     }
+
+    // Lấy số lượng chuyên môn theo giangVienId
+    public int getTotalChuyenMonByGiangVienId(int giangVienId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_CN + " WHERE " + CN_GIANGVIEN_ID + " = " + giangVienId, null);
+        return cursor.getCount();
+    }
 }
