@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.example.tranhuubinh17dcat023.model.B17DCAT023_ChuyenMon;
 import com.example.tranhuubinh17dcat023.model.B17DCAT023_GiangVien;
 
 import java.util.ArrayList;
@@ -92,7 +93,7 @@ public class database extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    // lấy tất cả sinh viên
+    // lấy tất cả giảng viên
     public ArrayList<B17DCAT023_GiangVien> getAllGiangVien() {
         SQLiteDatabase db = this.getWritableDatabase();
         ArrayList<B17DCAT023_GiangVien> giangVienArrayList = new ArrayList<>();
@@ -111,5 +112,25 @@ public class database extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return giangVienArrayList;
+    }
+
+    // Lấy tất cả chuyên môn
+    public ArrayList<B17DCAT023_ChuyenMon> getAllChuyenMon() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<B17DCAT023_ChuyenMon> chuyenMonArrayList = new ArrayList<>();
+        String sqlcode = "SELECT * FROM " + TABLE_CHUYENMON;
+        Cursor cursor = db.rawQuery(sqlcode, null);
+        if (cursor.moveToFirst()) {
+            do {
+                B17DCAT023_ChuyenMon chuyenmon = new B17DCAT023_ChuyenMon(
+                        cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2));
+                chuyenMonArrayList.add(chuyenmon);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return chuyenMonArrayList;
     }
 }
