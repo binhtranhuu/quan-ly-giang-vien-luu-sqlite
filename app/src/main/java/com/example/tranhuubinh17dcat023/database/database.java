@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 
 import com.example.tranhuubinh17dcat023.model.B17DCAT023_ChuyenMon;
 import com.example.tranhuubinh17dcat023.model.B17DCAT023_GiangVien;
+import com.example.tranhuubinh17dcat023.model.B17DCAT023_GiangVienChuyenMon;
 
 import java.util.ArrayList;
 
@@ -157,6 +158,19 @@ public class database extends SQLiteOpenHelper {
         values.put(CHUYENMON_DELTAIL, chuyenMon.getDetail());
 
         db.insert(TABLE_CHUYENMON, null, values);
+        db.close();
+    }
+
+    // Đăng ký chuyên môn
+    public void addGiangVienChuyenMon(B17DCAT023_GiangVienChuyenMon giangVienChuyenMon) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(CN_GIANGVIEN_ID, giangVienChuyenMon.getGiangvien_id());
+        values.put(CN_CHUYENMON_ID, giangVienChuyenMon.getChuyenmon_id());
+        values.put(CN_KINHNGHIEM, giangVienChuyenMon.getNamkinhnghiem());
+
+        db.insert(TABLE_CN, null, values);
         db.close();
     }
 }
