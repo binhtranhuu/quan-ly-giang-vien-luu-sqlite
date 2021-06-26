@@ -173,4 +173,41 @@ public class database extends SQLiteOpenHelper {
         db.insert(TABLE_CN, null, values);
         db.close();
     }
+
+    // Lấy tất cả dữ liệu trong bảng tbl_cn
+    public ArrayList<B17DCAT023_GiangVienChuyenMon> getAllGiangVienChuyenMon() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<B17DCAT023_GiangVienChuyenMon> giangVienChuyenMons = new ArrayList<>();
+        String sqlcode = "SELECT * FROM " + TABLE_CN + " ORDER BY " + CN_GIANGVIEN_ID;
+        Cursor cursor = db.rawQuery(sqlcode, null);
+        if (cursor.moveToFirst()) {
+            do {
+                B17DCAT023_GiangVienChuyenMon temp = new B17DCAT023_GiangVienChuyenMon(
+                        cursor.getInt(0),
+                        cursor.getInt(1),
+                        cursor.getString(2));
+                giangVienChuyenMons.add(temp);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return giangVienChuyenMons;
+    }
+
+    // lấy thông tin giảng viên qua id
+    public B17DCAT023_GiangVien getGiangVienById(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_GIANGVIEN + " WHERE " + GIANGVIEN_ID + " = " + id, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        B17DCAT023_GiangVien giangVien = new B17DCAT023_GiangVien(
+                cursor.getInt(0),
+                cursor.getString(1),
+                cursor.getString(2),
+                cursor.getString(3));
+        cursor.close();
+        db.close();
+        return giangVien;
+    }
 }

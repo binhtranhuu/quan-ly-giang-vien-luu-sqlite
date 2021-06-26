@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -41,6 +42,18 @@ public class ManGiangVienChuyenMon extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ManGiangVienChuyenMon.this, ManQuanLy.class);
+                startActivity(intent);
+            }
+        });
+
+        lvListChuyenMon.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(ManGiangVienChuyenMon.this, ManListGiangVienOfChuyenMon.class);
+                int idChuyenMon = chuyenMonArrayList.get(position).getId();
+                String tenChuyenMon = chuyenMonArrayList.get(position).getName();
+                intent.putExtra("idChuyenMon", idChuyenMon);
+                intent.putExtra("tenChuyenMon", tenChuyenMon);
                 startActivity(intent);
             }
         });
