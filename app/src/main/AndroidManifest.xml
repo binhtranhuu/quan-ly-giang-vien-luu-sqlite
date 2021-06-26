@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TranHuuBinhB17DCAT023">
-        <activity android:name=".ManAddGiangVien"></activity>
+        <activity android:name=".ManAddChuyenMon"></activity>
+        <activity android:name=".ManAddGiangVien" />
         <activity android:name=".ManTimKiemGiangVien" />
         <activity android:name=".ManTimKiem" />
         <activity android:name=".ManThongKe" />

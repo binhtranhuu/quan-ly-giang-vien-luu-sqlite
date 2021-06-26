@@ -147,4 +147,16 @@ public class database extends SQLiteOpenHelper {
         db.insert(TABLE_GIANGVIEN, null, values);
         db.close();
     }
+
+    // Thêm chuyên môn
+    public void addChuyenMon(B17DCAT023_ChuyenMon chuyenMon) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(CHUYENMON_NAME, chuyenMon.getName());
+        values.put(CHUYENMON_DELTAIL, chuyenMon.getDetail());
+
+        db.insert(TABLE_CHUYENMON, null, values);
+        db.close();
+    }
 }
