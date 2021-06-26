@@ -1,5 +1,6 @@
 package com.example.tranhuubinh17dcat023.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -132,5 +133,18 @@ public class database extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return chuyenMonArrayList;
+    }
+
+    // Thêm giảng viên
+    public void addGiangVien(B17DCAT023_GiangVien giangVien) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(GIANGVIEN_NAME, giangVien.getName());
+        values.put(GIANGVIEN_TRINHDO, giangVien.getTrinhdo());
+        values.put(GIANGVIEN_KINHNGHIEM, giangVien.getKinhnghiem());
+
+        db.insert(TABLE_GIANGVIEN, null, values);
+        db.close();
     }
 }
