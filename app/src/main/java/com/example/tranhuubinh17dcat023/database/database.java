@@ -1,10 +1,15 @@
 package com.example.tranhuubinh17dcat023.database;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+
+import com.example.tranhuubinh17dcat023.model.B17DCAT023_GiangVien;
+
+import java.util.ArrayList;
 
 public class database extends SQLiteOpenHelper {
 
@@ -56,8 +61,8 @@ public class database extends SQLiteOpenHelper {
 
     // Thêm lớp
     private String SQLQuery9 = "INSERT INTO tbl_chuyenmon VAlUES (null,'Phan Mem','Phan Mem hien dai')";
-    private String SQLQuery10 = "INSERT INTO tbl_class VAlUES (null,'Lap Trinh Nhung','Lap Trinh Nhung hien dai')";
-    private String SQLQuery11 = "INSERT INTO tbl_class VAlUES (null,'An Toan Thong Tin','An Toan Thong Tin hien dai')";
+    private String SQLQuery10 = "INSERT INTO tbl_chuyenmon VAlUES (null,'Lap Trinh Nhung','Lap Trinh Nhung hien dai')";
+    private String SQLQuery11 = "INSERT INTO tbl_chuyenmon VAlUES (null,'An Toan Thong Tin','An Toan Thong Tin hien dai')";
 
 
     public database(@Nullable Context context) {
@@ -85,5 +90,26 @@ public class database extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CHUYENMON);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CN);
         onCreate(db);
+    }
+
+    // lấy tất cả sinh viên
+    public ArrayList<B17DCAT023_GiangVien> getAllGiangVien() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<B17DCAT023_GiangVien> giangVienArrayList = new ArrayList<>();
+        String sqlcode = "SELECT * FROM " + TABLE_GIANGVIEN;
+        Cursor cursor = db.rawQuery(sqlcode, null);
+        if (cursor.moveToFirst()) {
+            do {
+                B17DCAT023_GiangVien student = new B17DCAT023_GiangVien(
+                        cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3));
+                giangVienArrayList.add(student);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return giangVienArrayList;
     }
 }
